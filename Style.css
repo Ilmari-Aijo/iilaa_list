@@ -1,0 +1,130 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+
+html{
+  min-height: 100%;
+  position: relative;
+
+}
+
+
+footer {
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  color: white;
+  text-align: center;
+}
+/* Contenedor principal para las listas */
+.container-listas {
+  overflow-x: auto;
+  /* Permitir el desplazamiento horizontal si el contenido es demasiado grande */
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin-top: 50px;
+  padding: 40px 100px;
+  margin-bottom: 50px;
+}
+
+
+ h1.h1login {
+   text-align: center;
+ }
+
+ hr {
+   border: 1px solid #ccc;
+ }
+
+ /* Input Styles */
+ form label {
+   display: block;
+   margin: 0px;
+ }
+
+ form input {
+   width: 100%;
+   padding: 10px;
+   margin-bottom: 15px;
+   box-sizing: border-box;
+ }
+
+ /* Button Styles */
+ form button {
+   background-color: #333;
+   color: #fff;
+   padding: 10px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+
+ /* Lista Styles */
+ .lista-card {
+   margin-bottom: 20px;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   padding: 40px;
+ }
+
+ .lista-header {
+   background-color: #333;
+   color: #fff;
+   padding: 10px;
+   margin: 0;
+   border-radius: 8px 8px 0 0;
+ }
+
+ .elemento {
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   padding: 10px;
+   margin-bottom: 10px;
+ }
+
+ /* Responsive Styles */
+ @media only screen and (max-width: 600px) {
+   form {
+     max-width: 100%;
+   }
+ }
+
+ /* A tags (links) to look like buttons */
+ a,
+ #trash,
+ #admin {
+   display: inline-block;
+   padding: 10px 20px;
+   background-color: #333;
+   color: #fff;
+   text-decoration: none;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+
+ a.btn-danger {
+   z-index: 1001;
+   align-content: center;
+   justify-content: flex-end;
+ }
+
+ .login-form {
+   margin: 0 auto;
+   width: 300px;
+ }
+
+ div {
+   margin-right: 10px;
+   margin-left: 10px;
+ }
+
+ .elementos {
+   float: none;
+   justify-content: center;
+ }
+ #agregarElemento { 
+   align-items: center;   
+   padding: 10px;
+  }
