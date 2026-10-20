@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1 class="h1login">Listas</h1>
     </header>
     <br>
-    <a href="Inicio.php">Regresar</a>
+    <a href="Inicio.php" class="volver">Regresar</a>
 <h1>Nueva Lista de Mercado</h1>
     <form action="" method="post">
         <p>
@@ -96,22 +96,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
         <p>
             <label for="fecha">Fecha</label>
-            <input id="fecha" type="date" name="fecha">
+            <input id="fecha" type="date" name="fecha" value="<?php echo date('Y-m-d'); ?>">
         </p>
         <h2>Elementos de la Lista</h2>
         <div id="elementos">
             <div class="elemento">
                 <p>Elemento 1:</p>
                 <p>
-                    <label for="elemento[0][nombre_elemento]">Nombre del Elemento</label>
+                    <label for="elemento[0][nombre_elemento]">Producto</label>
                     <input type="text" name="elemento[0][nombre_elemento]">
                 </p>
                 <p>
-                    <label for="elemento[0][unidades]">Unidades</label>
+                    <label for="elemento[0][unidades]">Cantidad</label>
                     <input type="text" name="elemento[0][unidades]">
                 </p>
                 <p>
-                    <label for="elemento[0][medida]">Medida</label>
+                    <label for="elemento[0][medida]">Unidad de medida</label>
                     <input type="text" name="elemento[0][medida]">
                 </p>
             </div>
@@ -130,15 +130,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             elementoDiv.innerHTML = `
                 <p>Elemento ${elementoCount + 1}:</p>
                 <p>
-                    <label for="elemento[${elementoCount}][nombre_elemento]">Nombre del Elemento</label>
+                    <label for="elemento[${elementoCount}][nombre_elemento]">Producto</label>
                     <input type="text" name="elemento[${elementoCount}][nombre_elemento]">
                 </p>
                 <p>
-                    <label for="elemento[${elementoCount}][unidades]">Unidades</label>
+                    <label for="elemento[${elementoCount}][unidades]">Cantidad</label>
                     <input type="text" name="elemento[${elementoCount}][unidades]">
                 </p>
                 <p>
-                    <label for="elemento[${elementoCount}][medida]">Medida</label>
+                    <label for="elemento[${elementoCount}][medida]">Unidad de medida</label>
                     <input type="text" name="elemento[${elementoCount}][medida]">
                 </p>
             `;

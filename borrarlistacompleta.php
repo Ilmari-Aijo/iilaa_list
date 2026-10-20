@@ -2,6 +2,7 @@
 session_start();
 
 include('Conexion.php');
+include('funciones.php');
 
 // Verifica si el usuario ha iniciado sesión
 if (!isset($_SESSION['usuario'])) {
@@ -16,13 +17,7 @@ if (isset($_POST['listaId'])) {
     $listaId = $_POST['listaId'];
 
     // Verifica que la lista pertenezca al usuario logueado antes de borrar nada
-    $sqlVerificar = "SELECT id FROM listas WHERE id = ? AND idu = ?";
-    $stmtVerificar = $conexion->prepare($sqlVerificar);
-    $stmtVerificar->bind_param("ii", $listaId, $idu);
-    $stmtVerificar->execute();
-    $resultadoVerificar = $stmtVerificar->get_result();
-
-    if ($resultadoVerificar->num_rows === 0) {
+    if (!obtenerListaDeUsuario($conexion, $listaId, $idu)) {
         // La lista no existe o no es tuya: no seguimos
         header("Location: Inicio.php");
         exit();

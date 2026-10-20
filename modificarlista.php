@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('Conexion.php');
+include('funciones.php');
 
 // Verifica que haya sesion iniciada
 if (!isset($_SESSION['usuario'])) {
@@ -12,21 +13,13 @@ $idu = $_SESSION['idu'];
 $elementoId = isset($_REQUEST['elementoId']) ? $_REQUEST['elementoId'] : null;
 
 // Verifica que el elemento exista y que, via su lista, pertenezca al usuario logueado
-$sqlVerificar = "SELECT elementos.* FROM elementos
-    JOIN listas ON elementos.id_lista = listas.id
-    WHERE elementos.id = ? AND listas.idu = ?";
-$stmtVerificar = mysqli_prepare($conexion, $sqlVerificar);
-mysqli_stmt_bind_param($stmtVerificar, "ii", $elementoId, $idu);
-mysqli_stmt_execute($stmtVerificar);
-$resultVerificar = mysqli_stmt_get_result($stmtVerificar);
+$elemento = obtenerElementoDeUsuario($conexion, $elementoId, $idu);
 
-if (mysqli_num_rows($resultVerificar) === 0) {
+if (!$elemento) {
     // El elemento no existe o no es tuyo: no seguimos
     header('Location: Inicio.php');
     exit();
 }
-
-$elemento = mysqli_fetch_assoc($resultVerificar);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Comprobamos si el formulario se envió y procesamos la actualización
@@ -61,18 +54,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header>
         <h1 class="h1login">Listas</h1>
     </header>
-    <a href="Inicio.php">Regresar</a>
+    <a href="Inicio.php" class="volver">Regresar</a>
     <form method="post">
         <p>
-            <label for="nombre_elemento">Nombre del Elemento</label>
+            <label for="nombre_elemento">Producto</label>
             <input id="nombre_elemento" type="text" name="nombre_elemento" value="<?= isset($elemento['nombre']) ? $elemento['nombre'] : '' ?>" required>
         </p>
         <p>
-            <label for="unidades">Unidades</label>
+            <label for="unidades">Cantidad</label>
             <input id="unidades" type="text" name="unidades" value="<?= isset($elemento['unidades']) ? $elemento['unidades'] : '' ?>" required>
         </p>
         <p>
-            <label for="medida">Medida</label>
+            <label for="medida">Unidad de medida</label>
             <input id="medida" type="text" name="medida" value="<?= isset($elemento['medida']) ? $elemento['medida'] : '' ?>" required>
         </p>
         <input type="hidden" name="elementoId" value="<?= $elementoId ?>">

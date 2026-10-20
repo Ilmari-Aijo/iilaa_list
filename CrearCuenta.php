@@ -53,9 +53,8 @@
             <a href="Index.php" class="Boton_Ingresar">
                 Ingresa
             </a>
-
+            </div>
         </form>
-    </div>
     <footer>
         <p>Copyright &copy; 2023</p>
     </footer>

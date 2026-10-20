@@ -47,9 +47,7 @@ $resultado = $consulta->get_result();
         <header>
             <h1 class="h1login">Listas Block de notas</h1>
         </header>
-        <CENTER>
-            <H1 class="h1login">Listas</H1>
-        </CENTER>
+        <h1 class="h1login">Listas</h1>
         <?php
         // Verifica si el usuario actual es Admin para mostrar el botón
         if ($usuario === 'admin' || $usuario === 'Admin') {
@@ -71,6 +69,12 @@ $resultado = $consulta->get_result();
         while ($fila = $resultado->fetch_assoc()) :
             if ($currentListId !== $fila['id']) {
                 if ($currentListId !== null) {
+                    echo '<form class="form-agregar-elemento" data-lista-id="' . $currentListId . '">';
+                    echo '<input type="text" name="nombre_elemento" placeholder="Producto" required>';
+                    echo '<input type="text" name="unidades" placeholder="Cantidad" required>';
+                    echo '<input type="text" name="medida" placeholder="Unidad de medida (kg, litros...)" required>';
+                    echo '<button type="submit" class="btn btn-sm btn-primary">Agregar elemento</button>';
+                    echo '</form>';
                     echo '<form id="formBorrarLista' . $currentListId . '" action="borrarlistacompleta.php" method="post" style="display: none;">';
                     echo '<input type="hidden" name="listaId" value="' . $currentListId . '">';
                     echo '</form>';
@@ -88,7 +92,7 @@ $resultado = $consulta->get_result();
                 <a href="modificarlista.php?elementoId=<?= $fila['elemento_id'] ?>">Modificar</a>
 
                 <!-- Modifica el botón de borrado -->
-                <button id="trash" class="btn btn-link" onclick='return confirmarBorrado(<?= $fila['elemento_id'] ?>)'>
+                <button class="btn btn-link btn-trash" onclick='return confirmarBorrado(<?= $fila['elemento_id'] ?>)'>
                     <i class="fas fa-trash"></i>
                 </button>
 
@@ -102,6 +106,12 @@ $resultado = $consulta->get_result();
         endwhile;
 
         if ($currentListId !== null) {
+            echo '<form class="form-agregar-elemento" data-lista-id="' . $currentListId . '">';
+            echo '<input type="text" name="nombre_elemento" placeholder="Producto" required>';
+            echo '<input type="text" name="unidades" placeholder="Cantidad" required>';
+            echo '<input type="text" name="medida" placeholder="Unidad de medida (kg, litros...)" required>';
+            echo '<button type="submit" class="btn btn-sm btn-primary">Agregar elemento</button>';
+            echo '</form>';
             echo '<form id="formBorrarLista' . $currentListId . '" action="borrarlistacompleta.php" method="post" style="display: none;">';
             echo '<input type="hidden" name="listaId" value="' . $currentListId . '">';
             echo '</form>';
@@ -138,4 +148,35 @@ $resultado = $consulta->get_result();
                 }
             }
         </script>
+    <script>
+        // Conecta cada mini-formulario "Agregar elemento" con agregarelemento.php
+        // sin recargar la pagina, usando fetch (mismo patron que en el proyecto
+        // del carcinoma).
+        document.querySelectorAll('.form-agregar-elemento').forEach(function (form) {
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                const listaId = form.dataset.listaId;
+                const formData = new FormData(form);
+                formData.append('listaId', listaId);
+
+                try {
+                    const response = await fetch('agregarelemento.php', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    const data = await response.json();
+
+                    if (data.success) {
+                        // Recargamos para ver el elemento nuevo en la lista
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                } catch (error) {
+                    alert('Error de red al agregar el elemento: ' + error.message);
+                }
+            });
+        });
+    </script>
 </html>

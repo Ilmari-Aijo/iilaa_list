@@ -1,15 +1,15 @@
 <?php
 
     $host = "localhost";
-    $User = "root";
+    $user = "root";
     $pass = "";
 
     $db = "dblistas";
 
-    $conexion = mysqli_connect($host, $User , $pass, $db);
+    $conexion = mysqli_connect($host, $user, $pass, $db);
 
     if (!$conexion) {
-     echo "Conexion fallida";
+        die("Conexion fallida: " . mysqli_connect_error());
     }
 
 ?>

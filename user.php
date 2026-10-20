@@ -1,14 +1,5 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "dblistas";
-
-$conexion = mysqli_connect($host, $user, $pass, $db);
-
-if (!$conexion) {
-    die("Conexion fallida: " . mysqli_connect_error());
-}
+include('Conexion.php');
 
 // Manejo de la eliminación de usuarios
 if (isset($_GET["delete"])) {
@@ -66,91 +57,14 @@ $result = mysqli_query($conexion, $sql);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Usuarios Registrados</title>
 </head>
-<style>
-    body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    color: #495057;
-    margin: 0;
-    }
+<body class="admin-page">
+    <header>
+        <h1 class="h1login">Listas</h1>
+    </header>
 
-    h2 {
-        text-align: center;
-        color: #007bff;
-    }
+    <a href="Inicio.php" class="volver">Inicio</a>
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px auto;
-    }
-
-    table, th, td {
-        border: 1px solid #ddd;
-    }
-
-    th, td {
-        padding: 12px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #007bff;
-        color: #ffffff;
-    }
-
-    tr:hover {
-        background-color: #f5f5f5;
-    }
-
-    form {
-        max-width: 400px;
-        margin: 20px auto;
-        padding: 15px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-
-    input[type="text"] {
-        width: 100%;
-        padding: 8px;
-        margin: 8px 0;
-        box-sizing: border-box;
-    }
-
-    input[type="submit"] {
-        background-color: #007bff;
-        color: #ffffff;
-        padding: 10px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-
-    input[type="submit"]:hover {
-        background-color: #0056b3;
-    }
-
-    #inicioBtn {
-        background-color: #007bff;
-        color: #ffffff;
-        padding: 10px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        margin: 20px;
-    }
-
-    #inicioBtn:hover {
-        background-color: #0056b3;
-    }
-</style>
-<body>
-
-<a href="inicio.php" id="inicioBtn">Inicio</a>
-
-<h2>Usuarios Registrados</h2>
+    <h2>Usuarios Registrados</h2>
 
 <table>
     <tr>
@@ -186,10 +100,12 @@ if (isset($_GET["edit"])) {
     $edit_row = mysqli_fetch_assoc($edit_result);
     ?>
 
-    <form method="post" action="" style="max-width: 400px; margin: 20px auto; padding: 15px; background-color: #fff; border: 1px solid #ddd; border-radius: 5px;">
+    <form method="post" action="">
         <input type="hidden" name="idu_edit" value="<?php echo $edit_row["idu"]; ?>">
-        Nombre: <input type="text" name="nombre_edit" value="<?php echo $edit_row["nombre"]; ?>"><br>
-        Usuario: <input type="text" name="usuario_edit" value="<?php echo $edit_row["usuario"]; ?>"><br>
+        <label for="nombre_edit">Nombre</label>
+        <input id="nombre_edit" type="text" name="nombre_edit" value="<?php echo $edit_row["nombre"]; ?>">
+        <label for="usuario_edit">Usuario</label>
+        <input id="usuario_edit" type="text" name="usuario_edit" value="<?php echo $edit_row["usuario"]; ?>">
         <input type="submit" value="Guardar cambios">
     </form>
 
@@ -203,6 +119,9 @@ if (isset($_GET["edit"])) {
     }
 </script>
 
+    <footer>
+        <p>Copyright &copy; 2026</p>
+    </footer>
 </body>
 </html>
 

@@ -3,6 +3,7 @@ session_start();
 
 // Conexión a la base de datos (incluye tu archivo de conexión)
 include('Conexion.php');
+include('funciones.php');
 
 header('Content-Type: application/json');
 
@@ -21,13 +22,7 @@ $unidades = $_POST['unidades'];
 $medida = $_POST['medida'];
 
 // Verifica que la lista exista y pertenezca al usuario logueado
-$sqlVerificar = "SELECT id FROM listas WHERE id = ? AND idu = ?";
-$consultaVerificar = $conexion->prepare($sqlVerificar);
-$consultaVerificar->bind_param("ii", $listaId, $idu);
-$consultaVerificar->execute();
-$resultadoVerificar = $consultaVerificar->get_result();
-
-if ($resultadoVerificar->num_rows === 0) {
+if (!obtenerListaDeUsuario($conexion, $listaId, $idu)) {
     echo json_encode(['success' => false, 'message' => 'Esa lista no existe o no te pertenece']);
     exit();
 }

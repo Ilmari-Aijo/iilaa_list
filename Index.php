@@ -47,7 +47,7 @@
         </div>
     </form>
     <footer>
-        <p>Copyright &copy; 2023</p>
+        <p>Copyright &copy; 2026</p>
     </footer>
 </body>
 </html>
